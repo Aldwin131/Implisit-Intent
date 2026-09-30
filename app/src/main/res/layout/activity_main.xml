@@ -29,4 +29,18 @@
         android:text="Set Timer"
         android:layout_marginTop="8dp"/>
 
+    <EditText
+        android:id="@+id/etURL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan URL"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnOpenURL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buka Website"
+        android:layout_marginTop="8dp"/>
+
 </LinearLayout>
