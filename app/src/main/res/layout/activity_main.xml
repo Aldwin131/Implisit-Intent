@@ -65,4 +65,11 @@
         android:contentDescription="Hasil Foto Thumbnail"
         android:scaleType="centerInside" />
 
+    <Button
+        android:id="@+id/btnBukaMaps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buka Google Maps"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>
