@@ -3,14 +3,17 @@ package com.example.implisitintent
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -28,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Topik 1: Kirim Pesan
         val btnKirimPesan: Button = findViewById(R.id.btnKirimPesan)
         btnKirimPesan.setOnClickListener {
             val _sendIntent = Intent().apply {
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Topik 2: Mengatur Alarm
         val btnSetAlarm: Button = findViewById(R.id.btnSetAlarm)
         btnSetAlarm.setOnClickListener {
             val _alarmIntent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
@@ -112,12 +113,28 @@ class MainActivity : AppCompatActivity() {
                         putExtra(CalendarContract.Events.ALL_DAY, false)
                         putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, selectedDateTime.timeInMillis)
                         putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.timeInMillis)
+                        putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.timeInMillis)
                     }
                     startActivity(eventIntent)
                 }, hour, minute, true)
                 timePickerDialog.show()
             }, year, month, day)
             datePickerDialog.show()
+        }
+
+        val _ivHasil: ImageView = findViewById(R.id.ivHasil)
+        val _btnGetPhoto: Button = findViewById(R.id.btnGetPhoto)
+
+        val cameraLauncher = registerForActivityResult(
+            ActivityResultContracts.TakePicturePreview()
+        ) { bitmap: Bitmap? ->
+            if (bitmap != null) {
+                _ivHasil.setImageBitmap(bitmap)
+            }
+        }
+
+        _btnGetPhoto.setOnClickListener {
+            cameraLauncher.launch(null)
         }
     }
 }
