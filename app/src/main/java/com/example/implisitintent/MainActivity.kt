@@ -2,6 +2,7 @@ package com.example.implisitintent
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         val btnKirimPesan: Button = findViewById(R.id.btnKirimPesan)
-
         btnKirimPesan.setOnClickListener {
             val _sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -33,6 +33,26 @@ class MainActivity : AppCompatActivity() {
             if (_sendIntent.resolveActivity(packageManager) != null) {
                 startActivity(chooser)
             }
+        }
+
+        val btnSetAlarm: Button = findViewById(R.id.btnSetAlarm)
+        btnSetAlarm.setOnClickListener {
+            val _alarmIntent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+                putExtra(AlarmClock.EXTRA_MESSAGE, "COBA ALARM")
+                putExtra(AlarmClock.EXTRA_HOUR, 20)
+                putExtra(AlarmClock.EXTRA_MINUTES, 15)
+            }
+            startActivity(_alarmIntent)
+        }
+
+        val btnSetTimer: Button = findViewById(R.id.btnSetTimer)
+        btnSetTimer.setOnClickListener {
+            val _timerIntent = Intent(AlarmClock.ACTION_SET_TIMER).apply {
+                putExtra(AlarmClock.EXTRA_MESSAGE, "COBA TIMER")
+                putExtra(AlarmClock.EXTRA_LENGTH, 20)
+                putExtra(AlarmClock.EXTRA_SKIP_UI, true)
+            }
+            startActivity(_timerIntent)
         }
     }
 }
